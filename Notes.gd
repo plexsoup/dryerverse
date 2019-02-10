@@ -15,6 +15,16 @@ extends Node
 
 	
 # GAME FEEL
+
+	# if you need to use mouse to aim the grappling hook, then clicking should shoot the hook too.
+	
+	# get the dialog boxes down to 2 lines each
+	
+	# add a ceiling to the house level
+	
+	# pressing left and right while on a grappling hook should move you along the normal tangent.
+	
+	
 	# you should be able to jump from the yarn
 	
 	# make animations for the sock: either paper cutouts or skeletal polygon deformations
