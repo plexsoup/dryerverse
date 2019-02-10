@@ -11,17 +11,22 @@ export var IntroText = [
 	"((Use ASD and Space to get around.))"
 ]
 
-signal level_initialized() # for Initializer.gd
+onready var global = get_node("/root/global")
 
+signal level_initialized() # for Initializer.gd
+signal restart_requested()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	connect("restart_requested", global.getRootSceneManager(), "_on_level_restart_requested")
 	pass # Replace with function body.
+
 	
 func _process(delta):
 	#print(self.name, " rotating" )
 	self.set_global_rotation(self.get_global_rotation()+RotationSpeed * delta)
-	
+
+		
 
 func getExit():
 	return $Exit
@@ -54,3 +59,8 @@ func getExitLocation():
 func _on_Exit_body_entered(body):
 	if body == global.getCurrentPlayer():
 		victory()
+
+func _on_Area2D_body_entered(body):
+	# Restart Level
+	emit_signal("restart_requested")
+

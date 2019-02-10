@@ -20,7 +20,7 @@ func _ready():
 
 func start():
 	InitialPosition = get_global_position()
-	
+	add_to_group("enemies")
 	
 #func applyGravity(delta):
 #	Velocity.y += global.Gravity * delta * global.GameSpeed

@@ -1,17 +1,21 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://platforms/Level.gd" type="Script" id=1]
 [ext_resource path="res://platforms/laundromat.jpg" type="Texture" id=2]
 [ext_resource path="res://backgrounds/crabnebula.png" type="Texture" id=3]
 [ext_resource path="res://platforms/industrial_tileset.tres" type="TileSet" id=4]
 [ext_resource path="res://platforms/Exit.tscn" type="PackedScene" id=5]
-[ext_resource path="res://platforms/streetlamp.png" type="Texture" id=6]
+[ext_resource path="res://platforms/Streetlamp2.tscn" type="PackedScene" id=6]
 [ext_resource path="res://enemies/DustBunny.tscn" type="PackedScene" id=7]
+[ext_resource path="res://characters/socko.png" type="Texture" id=8]
+[ext_resource path="res://platforms/streetBackground.jpg" type="Texture" id=9]
+[ext_resource path="res://enemies/WaterSprite.tscn" type="PackedScene" id=10]
+[ext_resource path="res://effects/cheering.ogg" type="AudioStream" id=11]
 
 [sub_resource type="Animation" id=1]
 
 resource_name = "victory"
-length = 3.0
+length = 5.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
@@ -22,33 +26,84 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 3, 3 ) ]
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ) ]
 }
-
-[sub_resource type="CircleShape2D" id=2]
-
-radius = 20.9103
-
-[sub_resource type="CircleShape2D" id=3]
-
-radius = 42.2675
-
-[sub_resource type="RectangleShape2D" id=4]
-
-extents = Vector2( 10, 123.495 )
+tracks/1/type = "value"
+tracks/1/path = NodePath("Victory:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Victory/Particles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Victory/AudioStreamPlayer2D:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Victory/HappilyLabel:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [sub_resource type="RectangleShape2D" id=5]
 
 extents = Vector2( 47.9128, 13.7348 )
 
+[sub_resource type="ParticlesMaterial" id=6]
+
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+angular_velocity = 0.0
+orbit_velocity = 1.0
+orbit_velocity_random = 0.35
+scale = 4.4
+scale_random = 1.0
+color = Color( 0.921569, 0, 1, 1 )
+hue_variation = 1.0
+hue_variation_random = 1.0
+
 [node name="Level3" type="Node2D"]
 script = ExtResource( 1 )
 RotationSpeed = 0.0
-IntroText = [ "They're not in the back yard. Perhaps at the laundromat.", "...but it's raining. I have to stay out of the puddles." ]
+IntroText = [ "They're not in the back yard. Perhaps at the laundromat.", "(Stay out of the puddles and avoid the Dust Bunnies)" ]
 
 [node name="Laundromat" type="Sprite" parent="."]
-position = Vector2( 1057.45, -462.436 )
-scale = Vector2( 2, 2 )
+position = Vector2( 1069.06, -342.974 )
+scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 2 )
 
 [node name="BGVortex" type="Sprite" parent="."]
@@ -65,7 +120,7 @@ tile_set = ExtResource( 4 )
 cell_size = Vector2( 32, 32 )
 cell_quadrant_size = 64
 format = 1
-tile_data = PoolIntArray( -327700, 0, 0, -262164, 0, 0, -196628, 0, 0, -131092, 0, 0, -65556, 0, 0, -20, 0, 0, 65516, 0, 0, 65517, 3, 0, 65518, 3, 0, 65519, 3, 0, 65520, 3, 0, 65521, 3, 0, 65522, 3, 0, 65523, 3, 0, 65524, 3, 0, 65525, 2, 0, 65526, 2, 0, 65527, 2, 0, 65528, 3, 0, 65529, 3, 0, 65530, 3, 0, 65531, 3, 0, 65532, 3, 0, 65533, 3, 0, 65534, 3, 0, 65535, 3, 0, 0, 3, 0, 1, 3, 0, 2, 3, 0, 3, 3, 0, 4, 3, 0, 5, 2, 0, 6, 2, 0, 7, 2, 0, 8, 2, 0, 9, 2, 0, 10, 2, 0, 11, 2, 0, 12, 3, 0, 13, 3, 0, 14, 3, 0, 15, 3, 0, 16, 3, 0, 17, 3, 0, 18, 3, 0, 19, 3, 0, 20, 3, 0, 21, 3, 0, 22, 3, 0, 23, 3, 0, 24, 3, 0, 25, 3, 0, 26, 3, 0, 27, 3, 0, 28, 3, 0, 29, 3, 0, 30, 3, 0, 31, 3, 0, 32, 3, 0, 33, 3, 0, 34, 3, 0, 131060, 0, 0, 131061, 0, 0, 131062, 0, 0, 131063, 0, 0, 131064, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 65547, 0, 0, 65548, 0, 0 )
+tile_data = PoolIntArray( 65498, 3, 0, 65499, 3, 0, 65500, 3, 0, 65501, 3, 0, 65502, 3, 0, 65503, 3, 0, 65504, 3, 0, 65505, 3, 0, 65506, 3, 0, 65507, 3, 0, 65508, 3, 0, 65509, 3, 0, 65510, 3, 0, 65511, 3, 0, 65512, 3, 0, 65513, 3, 0, 65514, 3, 0, 65515, 3, 0, 65516, 3, 0, 65517, 3, 0, 65518, 3, 0, 65519, 3, 0, 65520, 3, 0, 65521, 3, 0, 65522, 3, 0, 65523, 3, 0, 65524, 3, 0, 65525, 2, 0, 65526, 2, 0, 65527, 2, 0, 65528, 3, 0, 65529, 3, 0, 65530, 3, 0, 65531, 3, 0, 65532, 3, 0, 65533, 3, 0, 65534, 3, 0, 65535, 3, 0, 0, 3, 0, 1, 3, 0, 2, 3, 0, 3, 3, 0, 4, 3, 0, 5, 2, 0, 6, 2, 0, 7, 2, 0, 8, 2, 0, 9, 2, 0, 10, 2, 0, 11, 2, 0, 12, 3, 0, 13, 3, 0, 14, 3, 0, 15, 3, 0, 16, 3, 0, 17, 3, 0, 18, 3, 0, 19, 3, 0, 20, 3, 0, 21, 3, 0, 22, 3, 0, 23, 3, 0, 24, 3, 0, 25, 3, 0, 26, 3, 0, 27, 3, 0, 28, 3, 0, 29, 3, 0, 30, 3, 0, 31, 3, 0, 32, 3, 0, 33, 3, 0, 34, 3, 0, 131060, 0, 0, 131061, 0, 0, 131062, 0, 0, 131063, 0, 0, 131064, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 65547, 0, 0, 65548, 0, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/victory = SubResource( 1 )
@@ -73,134 +128,13 @@ anims/victory = SubResource( 1 )
 [node name="Exit" parent="." instance=ExtResource( 5 )]
 position = Vector2( 934.851, -59.9064 )
 
-[node name="Streetlamp" type="Sprite" parent="."]
-editor/display_folded = true
-position = Vector2( 144.066, -284.951 )
-texture = ExtResource( 6 )
+[node name="Streetlamp2" parent="." instance=ExtResource( 6 )]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Streetlamp"]
-position = Vector2( -66.6769, -32.7724 )
-__meta__ = {
-"_edit_group_": true
-}
+[node name="Streetlamp3" parent="." instance=ExtResource( 6 )]
+position = Vector2( -409.998, -0.362305 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Streetlamp/StaticBody2D"]
-shape = SubResource( 2 )
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="Streetlamp"]
-position = Vector2( 61.8712, -89.9049 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Streetlamp/StaticBody2D2"]
-shape = SubResource( 2 )
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="Streetlamp"]
-position = Vector2( 5.74431, -229.271 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Streetlamp/StaticBody2D3"]
-shape = SubResource( 3 )
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="Streetlamp"]
-position = Vector2( -1.95068, -58.5208 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Streetlamp/StaticBody2D4"]
-shape = SubResource( 4 )
-
-[node name="Streetlamp2" type="Sprite" parent="."]
-editor/display_folded = true
-position = Vector2( -353.626, -273.897 )
-texture = ExtResource( 6 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Streetlamp2"]
-position = Vector2( -66.6769, -32.7724 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Streetlamp2/StaticBody2D"]
-shape = SubResource( 2 )
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="Streetlamp2"]
-position = Vector2( 61.8712, -89.9049 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Streetlamp2/StaticBody2D2"]
-shape = SubResource( 2 )
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="Streetlamp2"]
-position = Vector2( 5.74431, -229.271 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Streetlamp2/StaticBody2D3"]
-shape = SubResource( 3 )
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="Streetlamp2"]
-position = Vector2( -1.95068, -58.5208 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Streetlamp2/StaticBody2D4"]
-shape = SubResource( 4 )
-
-[node name="Streetlamp3" type="Sprite" parent="."]
-editor/display_folded = true
-position = Vector2( 414.111, -277.598 )
-texture = ExtResource( 6 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Streetlamp3"]
-position = Vector2( -66.6769, -32.7724 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Streetlamp3/StaticBody2D"]
-shape = SubResource( 2 )
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="Streetlamp3"]
-position = Vector2( 61.8712, -89.9049 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Streetlamp3/StaticBody2D2"]
-shape = SubResource( 2 )
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="Streetlamp3"]
-position = Vector2( 5.74431, -229.271 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Streetlamp3/StaticBody2D3"]
-shape = SubResource( 3 )
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="Streetlamp3"]
-position = Vector2( -1.95068, -58.5208 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Streetlamp3/StaticBody2D4"]
-shape = SubResource( 4 )
+[node name="Streetlamp4" parent="." instance=ExtResource( 6 )]
+position = Vector2( 449.185, 3.93359 )
 
 [node name="MudPuddle" type="Area2D" parent="."]
 position = Vector2( -303.717, 17.1985 )
@@ -216,5 +150,59 @@ shape = SubResource( 5 )
 [node name="DustBunny" parent="." instance=ExtResource( 7 )]
 position = Vector2( -64.149, 0 )
 RoamingRange = 100
+
+[node name="Sockie" type="Sprite" parent="."]
+position = Vector2( 1041.76, -43.1214 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 8 )
+flip_h = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+self_modulate = Color( 1, 1, 1, 0.34902 )
+motion_scale = Vector2( 0.75, 1 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 46.8655, -490.285 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 9 )
+
+[node name="Watersprite" parent="." instance=ExtResource( 10 )]
+position = Vector2( 263.53, 29.7825 )
+
+[node name="Watersprite2" parent="." instance=ExtResource( 10 )]
+position = Vector2( -300.325, 32.6868 )
+RoamingRange = 25
+
+[node name="Victory" type="Node2D" parent="."]
+visible = false
+position = Vector2( 939.04, -110.771 )
+
+[node name="Particles2D" type="Particles2D" parent="Victory"]
+position = Vector2( 3.41284, -1.1376 )
+emitting = false
+amount = 64
+explosiveness = 0.54
+randomness = 0.8
+process_material = SubResource( 6 )
+
+[node name="MyPartnerLabel" type="Label" parent="Victory"]
+margin_left = 1.70648
+margin_top = -21.6144
+margin_right = 105.706
+margin_bottom = -7.61441
+text = "YAY! My Partner!"
+
+[node name="HappilyLabel" type="Label" parent="Victory"]
+visible = false
+margin_left = -32.5604
+margin_top = -0.521027
+margin_right = 151.44
+margin_bottom = 13.479
+text = "We'll Live Happily Ever After!"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Victory"]
+stream = ExtResource( 11 )
 
 [connection signal="body_entered" from="Exit" to="." method="_on_Exit_body_entered"]

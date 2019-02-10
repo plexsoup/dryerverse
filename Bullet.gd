@@ -66,12 +66,14 @@ func explode():
 
 func checkDistanceFromGun():
 	
-	
-	if get_global_position().distance_squared_to(MyGun.get_global_position()) > MaxDistanceSquared:
-		emit_signal("destroyed", self)
-		queue_free()
-		#$DestructionTimer.start()
+	if is_instance_valid(MyGun):
+		if get_global_position().distance_squared_to(MyGun.get_global_position()) > MaxDistanceSquared:
+			emit_signal("destroyed", self)
+			queue_free()
+			#$DestructionTimer.start()
 
+	else:
+		return 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://platforms/streetlamp.png" type="Texture" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+extents = Vector2( 48.0952, 14.1657 )
+
+[sub_resource type="CircleShape2D" id=2]
+
+radius = 42.2675
+
+[sub_resource type="RectangleShape2D" id=3]
+
+extents = Vector2( 31.6035, 19.8668 )
+
+[sub_resource type="RectangleShape2D" id=4]
+
+extents = Vector2( 46.4288, 16.0296 )
+
+[node name="Streetlamp2" type="Sprite"]
+position = Vector2( -0.454071, -0.362305 )
+texture = ExtResource( 1 )
+offset = Vector2( 7.2359, -285.841 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="LampLeft" type="StaticBody2D" parent="."]
+position = Vector2( -50.0268, -326.697 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LampLeft"]
+position = Vector2( 1.03059, 1.27487 )
+shape = SubResource( 1 )
+
+[node name="VAWT" type="StaticBody2D" parent="."]
+position = Vector2( 13.77, -516.562 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VAWT"]
+shape = SubResource( 2 )
+
+[node name="SolarPanel" type="StaticBody2D" parent="."]
+position = Vector2( 20.566, -437.991 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SolarPanel"]
+shape = SubResource( 3 )
+
+[node name="LampRight" type="StaticBody2D" parent="."]
+position = Vector2( 57.9066, -388.208 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LampRight"]
+shape = SubResource( 4 )
+

@@ -31,7 +31,7 @@ tracks/0/keys = {
 [node name="Level1" type="Node2D"]
 script = ExtResource( 1 )
 RotationSpeed = 0.0
-IntroText = [ "Aaah, the dryer, my favorite place...", "I love it here. Clean, Warm, hanging out with my partner...", "...", "Wait... Where's my partner?", "((Use ASD and Space to get around.))" ]
+IntroText = [ "Aaah, the dryer, our favorite place. We love it here. Clean, Warm... Wait... Where's my partner?", "(Use ASD and Space to get around. Avoid the tumbling laundry.))" ]
 
 [node name="BGDryer" type="Sprite" parent="."]
 self_modulate = Color( 1, 1, 1, 0.196078 )

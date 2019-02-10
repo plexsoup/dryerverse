@@ -63,4 +63,11 @@ shape = SubResource( 2 )
 
 [node name="Particles2D" parent="." instance=ExtResource( 3 )]
 
+[node name="Label" type="Label" parent="."]
+margin_left = -11.6796
+margin_top = -39.7105
+margin_right = 28.3204
+margin_bottom = -25.7105
+text = "Exit"
+
 [connection signal="body_entered" from="." to="." method="_on_Exit_body_entered"]

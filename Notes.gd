@@ -7,10 +7,15 @@ extends Node
 	# 2. Street Lamp
 	
 # TODO:
-	# bug: remove vertical collision box from streetlamps
-	# add game over / you win / end-credits scene
-	# make levels longer, with more platforms and shit
-	# make a new enemy. a car drives by and splashes you>?
+	
+	# add boundary collision areas to detect when character falls out of level
+		# Bug. If you fall off the world on level 2, on restarting, the player collision area seems disabled. (falls through earth)
+	
+
+	# title screen should accept enter to begin level1 .
+	# game over animation should return to dryer from level 3.
+		# or, make a key or timer to restart the game.
+	
 	
 
 	

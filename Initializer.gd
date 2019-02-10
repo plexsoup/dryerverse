@@ -57,10 +57,15 @@ func instantiateNewLevel(levelPath):
 func nextLevel():
 	removeOldLevel()
 	CurrentLevelIndex +=1
-	if CurrentLevelIndex == Levels.size():
-		CurrentLevelIndex = 0
+	if CurrentLevelIndex < Levels.size():
+		instantiateNewLevel(Levels[CurrentLevelIndex])
+		CurrentState = STATES.playing
+
+func restartLevel():
+	removeOldLevel()
 	instantiateNewLevel(Levels[CurrentLevelIndex])
 	CurrentState = STATES.playing
+	
 
 func spawnPlayer(location):
 	var playerScene = preload("res://characters/Character.tscn")
@@ -102,5 +107,9 @@ func _on_TitleScreen_start_button_pressed():
 	removeTitleScreen()
 	nextLevel()
 	
-
+func _on_Character_level_restart_requested():
+	restartLevel()
+	
+func _on_level_restart_requested():
+	restartLevel()
 	

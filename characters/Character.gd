@@ -63,6 +63,8 @@ var DesiredRopeLengthSquared
 var Frame : int = 0
 
 signal hook_release_requested()
+signal level_restart_requested()
+
 
 enum STATES { idle, moving, jumping, crouching, sliding, swinging, warping, running, falling, reading } 
 var CurrentState = STATES.idle
@@ -82,7 +84,7 @@ func start():
 	changeState(STATES.falling)
 	GrappleGun.start(self)
 	connect("hook_release_requested", GrappleGun, "_on_Character_hook_release_requested")
-
+	connect("level_restart_requested", global.getRootSceneManager(), "_on_Character_level_restart_requested")
 
 func jump(magnitude):
 	CrouchTicks = 0
@@ -191,7 +193,12 @@ func move(delta):
 	
 
 	move_and_slide(CurrentVelocity, UP)
-	
+	var numCollisions = get_slide_count()
+	for indexNum in numCollisions:
+		var collision = get_slide_collision(indexNum)
+		if collision.get_collider().is_in_group("enemies"):
+			# restart the level. you hit a dust bunny
+			emit_signal("level_restart_requested")
 
 	
 	#update() # calls _draw()
@@ -206,7 +213,7 @@ func changeState(newState):
 			XFriction = 0.5
 		STATES.crouching:
 			animationPlayer.play("crouch")
-			XFriction = 1.0
+			XFriction = 0.75
 			$CrouchTimer.start()
 		STATES.jumping:
 			animationPlayer.play("jump")
