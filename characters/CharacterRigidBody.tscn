@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://characters/CharacterRigidBody.gd" type="Script" id=1]
+[ext_resource path="res://characters/sockoEyes.png" type="Texture" id=2]
+[ext_resource path="res://fonts/PoolTheme.tres" type="Theme" id=3]
+
+[sub_resource type="CapsuleShape2D" id=1]
+
+radius = 30.2337
+height = 17.7906
+
+[node name="Socko" type="RigidBody2D"]
+continuous_cd = 1
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 1.97275, 5.67152 )
+shape = SubResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StateLabel" type="Label" parent="CanvasLayer"]
+margin_left = 66.0573
+margin_top = 59.0184
+margin_right = 242.057
+margin_bottom = 100.018
+theme = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0.529412, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0.121569, 0.239216, 1 )
+text = "State"
+
+[node name="VelocityLabel" type="Label" parent="CanvasLayer"]
+margin_left = 67.7637
+margin_top = 98.8344
+margin_right = 243.764
+margin_bottom = 139.834
+theme = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0.529412, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0.121569, 0.239216, 1 )
+text = "Velocity"
+
+[node name="FloorDetector" type="RayCast2D" parent="."]
+position = Vector2( 11.84, 44.47 )
+cast_to = Vector2( 0, 15 )
+

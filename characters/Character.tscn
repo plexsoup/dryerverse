@@ -1,0 +1,290 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://characters/Character.gd" type="Script" id=1]
+[ext_resource path="res://characters/sockoEyes.png" type="Texture" id=2]
+[ext_resource path="res://characters/Camera2D.gd" type="Script" id=3]
+[ext_resource path="res://weapons/GrappleGun.tscn" type="PackedScene" id=4]
+[ext_resource path="res://characters/StateMachine.gd" type="Script" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+extents = Vector2( 26.3621, 43.3428 )
+
+[sub_resource type="Animation" id=2]
+
+resource_name = "crouch"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteContainer/Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.1, 0.1 ), Vector2( 0.1, 0.105 ), Vector2( 0.1, 0.06 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpriteContainer/Sprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -13.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+
+resource_name = "fall"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteContainer/Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.1, 0.13 ), Vector2( 0.1, 0.135 ), Vector2( 0.1, 0.13 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpriteContainer/Sprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 6.0, 6.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteContainer/Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.1, 0.1 ), Vector2( 0.1, 0.102 ), Vector2( 0.1, 0.1 ), Vector2( 0.1, 0.095 ), Vector2( 0.1, 0.1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpriteContainer/Sprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpriteContainer/Sprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.125, 0.379 ), Vector2( 0.125, 0.379 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteContainer/Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -13.5, 15.2, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpriteContainer/Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.1, 0.06 ), Vector2( 0.1, 0.1 ), Vector2( 0.1, 0.11 ), Vector2( 0.1, 0.1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpriteContainer/Sprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.125, 0.379 ), Vector2( 4.58036, -9.50029 ), Vector2( 0.125, 0.379 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteContainer/Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 18.8, 7.8, 18.8 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpriteContainer/Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.1, 0.1 ), Vector2( 0.1, 0.08 ), Vector2( 0.1, 0.1 ), Vector2( 0.1, 0.11 ), Vector2( 0.1, 0.1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpriteContainer/Sprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.579315, -0.323166 ), Vector2( 4.079, -12.953 ), Vector2( 0.579315, -0.323166 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteContainer/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.125, 5.789 ), Vector2( 0.125, 9.459 ), Vector2( 0.125, 5.789 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpriteContainer/Sprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 5.0, 5.0, 5.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpriteContainer/Sprite:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.06, 0.11 ), Vector2( 0.06, 0.12 ), Vector2( 0.06, 0.11 ) ]
+}
+
+[node name="Socko" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource( 1 )
+
+[node name="SpriteContainer" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="SpriteContainer"]
+position = Vector2( 0.125, 0.379 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 2 )
+offset = Vector2( -37.364, -451.755 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -3.64372, -43.3887 )
+shape = SubResource( 1 )
+
+[node name="CrouchTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/crouch = SubResource( 2 )
+anims/fall = SubResource( 3 )
+anims/idle = SubResource( 4 )
+anims/jump = SubResource( 5 )
+anims/run = SubResource( 6 )
+anims/swing = SubResource( 7 )
+
+[node name="GrappleGun" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, -86.24 )
+
+[node name="States" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="Idle" type="Node" parent="States"]
+
+[node name="Moving" type="Node" parent="States"]
+
+[node name="Crouching" type="Node" parent="States"]
+
+[node name="Jumping" type="Node" parent="States"]
+
+[node name="Swinging" type="Node" parent="States"]
+
+[node name="Staggered" type="Node" parent="States"]
+
+[node name="Falling" type="Node" parent="States"]
+
+[node name="Celebrating" type="Node" parent="States"]
+
+[node name="Warping" type="Node" parent="States"]
+
+[connection signal="timeout" from="CrouchTimer" to="." method="_on_CrouchTimer_timeout"]

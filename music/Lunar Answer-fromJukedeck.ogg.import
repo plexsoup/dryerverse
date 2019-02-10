@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Lunar Answer-fromJukedeck.ogg-588abcff8d928a3ceb5b3a9e4d22904f.oggstr"
+
+[deps]
+
+source_file="res://music/Lunar Answer-fromJukedeck.ogg"
+dest_files=[ "res://.import/Lunar Answer-fromJukedeck.ogg-588abcff8d928a3ceb5b3a9e4d22904f.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

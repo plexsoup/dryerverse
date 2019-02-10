@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://GUI/DialogBox.gd" type="Script" id=1]
+[ext_resource path="res://fonts/NotoSerif-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://effects/Dialog.Typing.ogg" type="AudioStream" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+
+size = 29
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[node name="DialogBox" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DialogTextLabel" type="Label" parent="."]
+visible = false
+margin_right = 368.0
+margin_bottom = 14.0
+text = "Press A/D to Move. S to Crouch and Jump. Space to Swing."
+align = 1
+
+[node name="LetterTimer" type="Timer" parent="DialogTextLabel"]
+wait_time = 0.05
+
+[node name="DialogTextBox" type="TextEdit" parent="."]
+margin_left = -338.0
+margin_top = -79.0
+margin_right = 339.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 334.99, 124.545 )
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "boo
+"
+readonly = true
+context_menu_enabled = false
+wrap_enabled = true
+
+[node name="KeypressNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -15.408
+
+[connection signal="timeout" from="DialogTextLabel/LetterTimer" to="." method="_on_LetterTimer_timeout"]

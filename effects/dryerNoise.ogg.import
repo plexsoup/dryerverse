@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/dryerNoise.ogg-e76a27703a582374ce91eac1c4b83e6f.oggstr"
+
+[deps]
+
+source_file="res://effects/dryerNoise.ogg"
+dest_files=[ "res://.import/dryerNoise.ogg-e76a27703a582374ce91eac1c4b83e6f.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
