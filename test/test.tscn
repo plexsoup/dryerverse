@@ -1,0 +1,77 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://platforms/industrial_tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://test/KinematicBody2D.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+extents = Vector2( 16.5431, 16.3936 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+extents = Vector2( 22.913, 24.2107 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+extents = Vector2( 16.2978, 16.1001 )
+
+[node name="TestScene" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 23 )
+format = 1
+tile_data = PoolIntArray( 1376280, 0, 0, 1376281, 0, 0, 1441792, 0, 0, 1441816, 0, 0, 1507328, 0, 0, 1507352, 0, 0, 1572864, 0, 0, 1572879, 0, 0, 1572888, 0, 0, 1638400, 0, 0, 1638410, 0, 0, 1638424, 0, 0, 1703936, 0, 0, 1703960, 0, 0, 1769472, 0, 0, 1769496, 0, 0, 1835008, 0, 0, 1835032, 0, 0, 1900544, 0, 0, 1900568, 0, 0, 1966080, 0, 0, 1966104, 0, 0, 2097150, 0, 0, 2097151, 0, 0, 2031616, 0, 0, 2031617, 0, 0, 2031618, 0, 0, 2031619, 0, 0, 2031620, 0, 0, 2031621, 0, 0, 2031622, 0, 0, 2031623, 0, 0, 2031624, 0, 0, 2031625, 0, 0, 2031626, 0, 0, 2031627, 0, 0, 2031628, 0, 0, 2031629, 0, 0, 2031630, 0, 0, 2031631, 0, 0, 2031632, 0, 0, 2031633, 0, 0, 2031634, 0, 0, 2031635, 0, 0, 2031636, 0, 0, 2031637, 0, 0, 2031638, 0, 0, 2031639, 0, 0, 2031640, 0, 0, 2031641, 0, 0, 2031642, 0, 0, 2031643, 0, 0, 2097156, 0, 0, 2097157, 0, 0, 2097158, 0, 0, 2097159, 0, 0, 2097160, 0, 0, 2097161, 0, 0, 2097162, 0, 0, 2097163, 0, 0, 2097164, 0, 0, 2097165, 0, 0, 2097166, 0, 0, 2097167, 0, 0, 2097168, 0, 0, 2097169, 0, 0, 2097170, 0, 0, 2097171, 0, 0, 2097172, 0, 0, 2097173, 0, 0, 2097174, 0, 0, 2097175, 0, 0, 2097176, 0, 0, 2097177, 0, 0 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+node_a = NodePath("../KinematicBody2D")
+node_b = NodePath("../StickyHook")
+bias = 0.9
+
+[node name="StickyHook" type="StaticBody2D" parent="."]
+position = Vector2( 500, 100 )
+
+[node name="Sprite" type="Sprite" parent="StickyHook"]
+modulate = Color( 0.631373, 0.12549, 0.12549, 1 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StickyHook"]
+shape = SubResource( 1 )
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="StickyHook"]
+node_a = NodePath("..")
+node_b = NodePath("../../KinematicBody2D")
+bias = 0.9
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2( 325, 100 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="RigidBody2D"]
+modulate = Color( 0.811765, 0.72549, 0.14902, 1 )
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 2 )
+
+[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="."]
+bias = 0.44
+length = 1.0
+stiffness = 64.0
+damping = 16.0
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="."]
+position = Vector2( 425, 200 )
+mode = 2
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="RigidBody2D2"]
+modulate = Color( 0.0941176, 0.705882, 0.0431373, 1 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
+shape = SubResource( 3 )
+
