@@ -1,0 +1,100 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://platforms/Level.gd" type="Script" id=1]
+[ext_resource path="res://platforms/hyperspacePlatform.gd" type="Script" id=2]
+[ext_resource path="res://backgrounds/crabnebula.png" type="Texture" id=3]
+[ext_resource path="res://fonts/PoolTheme.tres" type="Theme" id=4]
+[ext_resource path="res://fonts/Baskerville.tres" type="DynamicFont" id=5]
+[ext_resource path="res://platforms/Exit.tscn" type="PackedScene" id=6]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+extents = Vector2( 448.656, 10 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+extents = Vector2( 11.9765, 204.722 )
+
+[sub_resource type="ParticlesMaterial" id=1]
+
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 600.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 2.0
+
+[node name="Hyperspace" type="Node2D"]
+script = ExtResource( 1 )
+IntroText = [ "HYPERSPAAAAACE" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 395.869, 638.015 )
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 15.0734, -435.621 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -391.886, -217.408 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 389.883, -218.086 )
+shape = SubResource( 3 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( -443.158, -455.217 )
+scale = Vector2( 2, 2 )
+motion_scale = Vector2( 0.5, 0.5 )
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer"]
+margin_left = -379.865
+margin_top = -319.39
+margin_right = 1220.13
+margin_bottom = 1280.61
+color = Color( 0, 0, 0, 1 )
+
+[node name="nebula" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+self_modulate = Color( 1, 1, 1, 0.403922 )
+position = Vector2( 400.844, 358.137 )
+texture = ExtResource( 3 )
+
+[node name="Particles2D" type="Particles2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 415.848, 441.216 )
+scale = Vector2( 0.5, 0.5 )
+amount = 64
+process_material = SubResource( 1 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.75, 0.75 )
+
+[node name="Node2D" type="Node2D" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 136.037, 372.742 )
+rotation = -0.488692
+scale = Vector2( 1, 1 )
+
+[node name="HyperspaceLabel" type="Label" parent="ParallaxBackground/ParallaxLayer2/Node2D"]
+margin_left = -69.5374
+margin_top = 127.883
+margin_right = 491.463
+margin_bottom = 217.883
+theme = ExtResource( 4 )
+custom_fonts/font = ExtResource( 5 )
+text = "HYPERSPACE"
+
+[node name="PlayerSpawnPoint" type="Position2D" parent="."]
+position = Vector2( 395.869, 586.321 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Exit" parent="." instance=ExtResource( 6 )]
+position = Vector2( 708.157, 599.596 )
+

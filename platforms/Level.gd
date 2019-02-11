@@ -1,6 +1,7 @@
 extends Node2D
 
-export (float) var RotationSpeed = 0.4
+export (float) var RotationSpeed = 0.0
+
 
 # change dialog box to a number of lines..
 export var IntroText = [
@@ -29,7 +30,10 @@ func _process(delta):
 		
 
 func getExit():
-	return $Exit
+	if has_node("Exit"):
+		return $Exit
+	else:
+		return null
 	
 func start():
 #	spawnPlayer()
@@ -42,11 +46,14 @@ func spawnDialogBox():
 	var newDialogBox = DialogBox.instance()
 	add_child(newDialogBox)
 	newDialogBox.set_global_position(global.getCurrentPlayer().get_global_position() + Vector2(0, -200))
+	
 	newDialogBox.start(IntroText, global.getCurrentPlayer())
 
 
 func victory():
-	$AnimationPlayer.play("victory")
+	if has_node("AnimationPlayer"):
+		if $AnimationPlayer.has_animation("victory"):
+			$AnimationPlayer.play("victory")
 	
 	
 func end():

@@ -27,7 +27,10 @@ func start(textArray, nodeToFollow):
 
 	DialogText = textArray
 	DisplayedText = ""
-	CurrentLineText = DialogText[0]
+	if DialogText.size() > 0:
+		CurrentLineText = DialogText[0]
+	else:
+		end() # quit if there's no text to show
 	LetterTimer.start()
 	NodeToFollow = nodeToFollow
 	DialogBox.set_wrap_enabled(true)
@@ -70,7 +73,8 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		end()
 	
-	set_global_position(NodeToFollow.get_global_position() + Vector2(0, -200))
+	if is_instance_valid(NodeToFollow):
+		set_global_position(NodeToFollow.get_global_position() + Vector2(0, -200))
 	revealAllLetters()
 
 

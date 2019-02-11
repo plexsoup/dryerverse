@@ -1,142 +1,140 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://platforms/Level.gd" type="Script" id=1]
 [ext_resource path="res://platforms/laundromat.jpg" type="Texture" id=2]
-[ext_resource path="res://backgrounds/crabnebula.png" type="Texture" id=3]
-[ext_resource path="res://platforms/industrial_tileset.tres" type="TileSet" id=4]
-[ext_resource path="res://platforms/Exit.tscn" type="PackedScene" id=5]
-[ext_resource path="res://platforms/Streetlamp2.tscn" type="PackedScene" id=6]
-[ext_resource path="res://enemies/DustBunny.tscn" type="PackedScene" id=7]
-[ext_resource path="res://characters/socko.png" type="Texture" id=8]
-[ext_resource path="res://platforms/streetBackground.jpg" type="Texture" id=9]
-[ext_resource path="res://enemies/WaterSprite.tscn" type="PackedScene" id=10]
-[ext_resource path="res://effects/cheering.ogg" type="AudioStream" id=11]
+[ext_resource path="res://platforms/barrier.gd" type="Script" id=3]
+[ext_resource path="res://backgrounds/crabnebula.png" type="Texture" id=4]
+[ext_resource path="res://platforms/industrial_tileset.tres" type="TileSet" id=5]
+[ext_resource path="res://platforms/Exit.tscn" type="PackedScene" id=6]
+[ext_resource path="res://platforms/Streetlamp2.tscn" type="PackedScene" id=7]
+[ext_resource path="res://enemies/DustBunny.tscn" type="PackedScene" id=8]
+[ext_resource path="res://characters/socko.png" type="Texture" id=9]
+[ext_resource path="res://platforms/streetBackground.jpg" type="Texture" id=10]
+[ext_resource path="res://enemies/WaterSprite.tscn" type="PackedScene" id=11]
+[ext_resource path="res://effects/cheering.ogg" type="AudioStream" id=12]
+[ext_resource path="res://music/Lunar Answer-fromJukedeck.ogg" type="AudioStream" id=13]
+
+[sub_resource type="RectangleShape2D" id=4]
+
+extents = Vector2( 39.4673, 510.796 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+extents = Vector2( 47.9128, 13.7348 )
 
 [sub_resource type="Animation" id=1]
 
 resource_name = "victory"
 length = 5.0
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:scale")
+tracks/0/path = NodePath("Victory:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 3 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ) ]
+"times": PoolRealArray( 0, 0.1, 4.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, true ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Victory:visible")
+tracks/1/path = NodePath("Victory/AudioStreamPlayer2D:playing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0.1, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ false, true, false ]
+"values": [ false, true ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Victory/Particles2D:emitting")
+tracks/2/path = NodePath("Victory/ColorRect:self_modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.7 ),
+"times": PoolRealArray( 0.1, 4.9 ),
 "transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath("Victory/AudioStreamPlayer2D:playing")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Victory/HappilyLabel:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-
-[sub_resource type="RectangleShape2D" id=5]
-
-extents = Vector2( 47.9128, 13.7348 )
-
-[sub_resource type="ParticlesMaterial" id=6]
-
-flag_disable_z = true
-spread = 180.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 100.0
-angular_velocity = 0.0
-orbit_velocity = 1.0
-orbit_velocity_random = 0.35
-scale = 4.4
-scale_random = 1.0
-color = Color( 0.921569, 0, 1, 1 )
-hue_variation = 1.0
-hue_variation_random = 1.0
 
 [node name="Level3" type="Node2D"]
 script = ExtResource( 1 )
-RotationSpeed = 0.0
-IntroText = [ "They're not in the back yard. Perhaps at the laundromat.", "(Stay out of the puddles and avoid the Dust Bunnies)" ]
+IntroText = [ "They're not in the back yard. Perhaps at the laundromat.", "(Stay out of the puddles and avoid the Dust Bunnies. Use the STREETLAMPS!)" ]
 
 [node name="Laundromat" type="Sprite" parent="."]
 position = Vector2( 1069.06, -342.974 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 2 )
 
+[node name="Barriers" type="Node2D" parent="."]
+
+[node name="PerimeterWall1" type="StaticBody2D" parent="Barriers"]
+position = Vector2( -1362.97, -488.974 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="Barriers/PerimeterWall1"]
+margin_left = -379.0
+margin_top = -517.0
+margin_right = 40.0
+margin_bottom = 485.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Barriers/PerimeterWall1"]
+shape = SubResource( 4 )
+
+[node name="PerimeterWall2" type="StaticBody2D" parent="Barriers"]
+position = Vector2( 1613.07, -474.933 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="Barriers/PerimeterWall2"]
+margin_left = -31.0
+margin_top = -517.0
+margin_right = 312.0
+margin_bottom = 485.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Barriers/PerimeterWall2"]
+shape = SubResource( 4 )
+
 [node name="BGVortex" type="Sprite" parent="."]
 visible = false
 modulate = Color( 1, 1, 1, 0.286275 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="PlayerSpawnPoint" type="Position2D" parent="."]
 position = Vector2( -520.627, -46.0533 )
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource( 4 )
+tile_set = ExtResource( 5 )
 cell_size = Vector2( 32, 32 )
 cell_quadrant_size = 64
 format = 1
-tile_data = PoolIntArray( 65498, 3, 0, 65499, 3, 0, 65500, 3, 0, 65501, 3, 0, 65502, 3, 0, 65503, 3, 0, 65504, 3, 0, 65505, 3, 0, 65506, 3, 0, 65507, 3, 0, 65508, 3, 0, 65509, 3, 0, 65510, 3, 0, 65511, 3, 0, 65512, 3, 0, 65513, 3, 0, 65514, 3, 0, 65515, 3, 0, 65516, 3, 0, 65517, 3, 0, 65518, 3, 0, 65519, 3, 0, 65520, 3, 0, 65521, 3, 0, 65522, 3, 0, 65523, 3, 0, 65524, 3, 0, 65525, 2, 0, 65526, 2, 0, 65527, 2, 0, 65528, 3, 0, 65529, 3, 0, 65530, 3, 0, 65531, 3, 0, 65532, 3, 0, 65533, 3, 0, 65534, 3, 0, 65535, 3, 0, 0, 3, 0, 1, 3, 0, 2, 3, 0, 3, 3, 0, 4, 3, 0, 5, 2, 0, 6, 2, 0, 7, 2, 0, 8, 2, 0, 9, 2, 0, 10, 2, 0, 11, 2, 0, 12, 3, 0, 13, 3, 0, 14, 3, 0, 15, 3, 0, 16, 3, 0, 17, 3, 0, 18, 3, 0, 19, 3, 0, 20, 3, 0, 21, 3, 0, 22, 3, 0, 23, 3, 0, 24, 3, 0, 25, 3, 0, 26, 3, 0, 27, 3, 0, 28, 3, 0, 29, 3, 0, 30, 3, 0, 31, 3, 0, 32, 3, 0, 33, 3, 0, 34, 3, 0, 131060, 0, 0, 131061, 0, 0, 131062, 0, 0, 131063, 0, 0, 131064, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 65547, 0, 0, 65548, 0, 0 )
+tile_data = PoolIntArray( 65483, 536870915, 0, 65484, 536870915, 0, 65485, 536870915, 0, 65486, 536870915, 0, 65487, 536870915, 0, 65488, 536870915, 0, 65489, 536870915, 0, 65490, 536870915, 0, 65491, 536870915, 0, 65492, 536870915, 0, 65493, 536870915, 0, 65494, 536870915, 0, 65495, 536870915, 0, 65496, 536870915, 0, 65497, 536870915, 0, 65498, 3, 0, 65499, 3, 0, 65500, 3, 0, 65501, 3, 0, 65502, 3, 0, 65503, 3, 0, 65504, 3, 0, 65505, 3, 0, 65506, 3, 0, 65507, 3, 0, 65508, 3, 0, 65509, 3, 0, 65510, 3, 0, 65511, 3, 0, 65512, 3, 0, 65513, 3, 0, 65514, 3, 0, 65515, 3, 0, 65516, 3, 0, 65517, 3, 0, 65518, 3, 0, 65519, 3, 0, 65520, 3, 0, 65521, 3, 0, 65522, 3, 0, 65523, 3, 0, 65524, 3, 0, 65525, 2, 0, 65526, 2, 0, 65527, 2, 0, 65528, 3, 0, 65529, 3, 0, 65530, 3, 0, 65531, 3, 0, 65532, 3, 0, 65533, 3, 0, 65534, 3, 0, 65535, 3, 0, 0, 3, 0, 1, 3, 0, 2, 3, 0, 3, 3, 0, 4, 3, 0, 5, 2, 0, 6, 2, 0, 7, 2, 0, 8, 2, 0, 9, 2, 0, 10, 2, 0, 11, 2, 0, 12, 3, 0, 13, 3, 0, 14, 3, 0, 15, 3, 0, 16, 3, 0, 17, 3, 0, 18, 3, 0, 19, 3, 0, 20, 3, 0, 21, 3, 0, 22, 3, 0, 23, 3, 0, 24, 3, 0, 25, 3, 0, 26, 3, 0, 27, 3, 0, 28, 3, 0, 29, 3, 0, 30, 3, 0, 31, 3, 0, 32, 3, 0, 33, 3, 0, 34, 3, 0, 35, 536870915, 0, 36, 536870915, 0, 37, 536870915, 0, 38, 536870915, 0, 39, 536870915, 0, 40, 536870915, 0, 41, 536870915, 0, 42, 536870915, 0, 43, 536870915, 0, 44, 536870915, 0, 45, 536870915, 0, 46, 536870915, 0, 47, 536870915, 0, 48, 536870915, 0, 49, 536870915, 0, 50, 536870915, 0, 51, 536870915, 0, 52, 536870915, 0, 53, 536870915, 0, 54, 536870915, 0, 55, 536870915, 0, 56, 536870915, 0, 131019, 4, 0, 131020, 4, 0, 131021, 4, 0, 131022, 4, 0, 131023, 4, 0, 131024, 4, 0, 131025, 4, 0, 131026, 4, 0, 131027, 4, 0, 131028, 4, 0, 131029, 4, 0, 131030, 4, 0, 131031, 4, 0, 131032, 4, 0, 131033, 4, 0, 131034, 4, 0, 131035, 4, 0, 131036, 4, 0, 131037, 4, 0, 131038, 4, 0, 131039, 4, 0, 131040, 4, 0, 131041, 4, 0, 131042, 4, 0, 131043, 4, 0, 131044, 4, 0, 131045, 4, 0, 131046, 4, 0, 131047, 4, 0, 131048, 4, 0, 131049, 4, 0, 131050, 4, 0, 131051, 4, 0, 131052, 4, 0, 131053, 4, 0, 131054, 4, 0, 131055, 4, 0, 131056, 4, 0, 131057, 4, 0, 131058, 4, 0, 131059, 4, 0, 131060, 4, 0, 131061, 4, 0, 131062, 4, 0, 131063, 4, 0, 131064, 4, 0, 131065, 4, 0, 131066, 4, 0, 131067, 4, 0, 131068, 4, 0, 131069, 4, 0, 131070, 4, 0, 131071, 4, 0, 65536, 4, 0, 65537, 4, 0, 65538, 4, 0, 65539, 4, 0, 65540, 4, 0, 65541, 4, 0, 65542, 4, 0, 65543, 4, 0, 65544, 4, 0, 65545, 4, 0, 65546, 4, 0, 65547, 4, 0, 65548, 4, 0, 65549, 4, 0, 65550, 4, 0, 65551, 4, 0, 65552, 4, 0, 65553, 4, 0, 65554, 4, 0, 65555, 4, 0, 65556, 4, 0, 65557, 4, 0, 65558, 4, 0, 65559, 4, 0, 65560, 4, 0, 65561, 4, 0, 65562, 4, 0, 65563, 4, 0, 65564, 4, 0, 65565, 4, 0, 65566, 4, 0, 65567, 4, 0, 65568, 4, 0, 65569, 4, 0, 65570, 4, 0, 65571, 4, 0, 65572, 4, 0, 65573, 4, 0, 65574, 4, 0, 65575, 4, 0, 65576, 4, 0, 65577, 4, 0, 65578, 4, 0, 65579, 4, 0, 65580, 4, 0, 65581, 4, 0, 65582, 4, 0, 65583, 4, 0, 65584, 4, 0, 65585, 4, 0, 65586, 4, 0, 65587, 4, 0, 65588, 4, 0, 65589, 4, 0, 65590, 4, 0, 65591, 4, 0, 65592, 4, 0, 196555, 4, 0, 196556, 4, 0, 196557, 4, 0, 196558, 4, 0, 196559, 4, 0, 196560, 4, 0, 196561, 4, 0, 196562, 4, 0, 196563, 4, 0, 196564, 4, 0, 196565, 4, 0, 196566, 4, 0, 196567, 4, 0, 196568, 4, 0, 196569, 4, 0, 196570, 4, 0, 196571, 4, 0, 196572, 4, 0, 196573, 4, 0, 196574, 4, 0, 196575, 4, 0, 196576, 4, 0, 196577, 4, 0, 196578, 4, 0, 196579, 4, 0, 196580, 4, 0, 196581, 4, 0, 196582, 4, 0, 196583, 4, 0, 196584, 4, 0, 196585, 4, 0, 196586, 4, 0, 196587, 4, 0, 196588, 4, 0, 196589, 4, 0, 196590, 4, 0, 196591, 4, 0, 196592, 4, 0, 196593, 4, 0, 196594, 4, 0, 196595, 4, 0, 196596, 4, 0, 196597, 4, 0, 196598, 4, 0, 196599, 4, 0, 196600, 4, 0, 196601, 4, 0, 196602, 4, 0, 196603, 4, 0, 196604, 4, 0, 196605, 4, 0, 196606, 4, 0, 196607, 4, 0, 131072, 4, 0, 131073, 4, 0, 131074, 4, 0, 131075, 4, 0, 131076, 4, 0, 131077, 4, 0, 131078, 4, 0, 131079, 4, 0, 131080, 4, 0, 131081, 4, 0, 131082, 4, 0, 131083, 4, 0, 131084, 4, 0, 131085, 4, 0, 131086, 4, 0, 131087, 4, 0, 131088, 4, 0, 131089, 4, 0, 131090, 4, 0, 131091, 4, 0, 131092, 4, 0, 131093, 4, 0, 131094, 4, 0, 131095, 4, 0, 131096, 4, 0, 131097, 4, 0, 131098, 4, 0, 131099, 4, 0, 131100, 4, 0, 131101, 4, 0, 131102, 4, 0, 131103, 4, 0, 131104, 4, 0, 131105, 4, 0, 131106, 4, 0, 131107, 4, 0, 131108, 4, 0, 131109, 4, 0, 131110, 4, 0, 131111, 4, 0, 131112, 4, 0, 131113, 4, 0, 131114, 4, 0, 131115, 4, 0, 131116, 4, 0, 131117, 4, 0, 131118, 4, 0, 131119, 4, 0, 131120, 4, 0, 131121, 4, 0, 131122, 4, 0, 131123, 4, 0, 131124, 4, 0, 131125, 4, 0, 131126, 4, 0, 131127, 4, 0, 131128, 4, 0 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/victory = SubResource( 1 )
-
-[node name="Exit" parent="." instance=ExtResource( 5 )]
+[node name="Exit" parent="." instance=ExtResource( 6 )]
 position = Vector2( 934.851, -59.9064 )
 
-[node name="Streetlamp2" parent="." instance=ExtResource( 6 )]
+[node name="Streetlamp2" parent="." instance=ExtResource( 7 )]
 
-[node name="Streetlamp3" parent="." instance=ExtResource( 6 )]
+[node name="Streetlamp3" parent="." instance=ExtResource( 7 )]
 position = Vector2( -409.998, -0.362305 )
 
-[node name="Streetlamp4" parent="." instance=ExtResource( 6 )]
+[node name="Streetlamp4" parent="." instance=ExtResource( 7 )]
 position = Vector2( 449.185, 3.93359 )
 
 [node name="MudPuddle" type="Area2D" parent="."]
+editor/display_folded = true
 position = Vector2( -303.717, 17.1985 )
 __meta__ = {
 "_edit_group_": true
@@ -145,16 +143,16 @@ __meta__ = {
 [node name="Water" type="Sprite" parent="MudPuddle"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MudPuddle"]
-shape = SubResource( 5 )
+shape = SubResource( 2 )
 
-[node name="DustBunny" parent="." instance=ExtResource( 7 )]
+[node name="DustBunny" parent="." instance=ExtResource( 8 )]
 position = Vector2( -64.149, 0 )
 RoamingRange = 100
 
 [node name="Sockie" type="Sprite" parent="."]
 position = Vector2( 1041.76, -43.1214 )
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 flip_h = true
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -166,43 +164,51 @@ motion_scale = Vector2( 0.75, 1 )
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
 position = Vector2( 46.8655, -490.285 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
-[node name="Watersprite" parent="." instance=ExtResource( 10 )]
-position = Vector2( 263.53, 29.7825 )
+[node name="Watersprite" parent="." instance=ExtResource( 11 )]
+position = Vector2( 266.524, 1.04323 )
 
-[node name="Watersprite2" parent="." instance=ExtResource( 10 )]
-position = Vector2( -300.325, 32.6868 )
+[node name="Watersprite2" parent="." instance=ExtResource( 11 )]
+position = Vector2( -301.703, -0.70871 )
 RoamingRange = 25
+Speed = 50
+
+[node name="BG Scenery" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="BG Scenery"]
+margin_left = -1690.0
+margin_top = 98.0
+margin_right = 1811.0
+margin_bottom = 638.0
+color = Color( 0.329412, 0.172549, 0.00784314, 1 )
 
 [node name="Victory" type="Node2D" parent="."]
 visible = false
 position = Vector2( 939.04, -110.771 )
 
-[node name="Particles2D" type="Particles2D" parent="Victory"]
-position = Vector2( 3.41284, -1.1376 )
-emitting = false
-amount = 64
-explosiveness = 0.54
-randomness = 0.8
-process_material = SubResource( 6 )
-
 [node name="MyPartnerLabel" type="Label" parent="Victory"]
-margin_left = 1.70648
-margin_top = -21.6144
-margin_right = 105.706
-margin_bottom = -7.61441
+margin_left = 54.9063
+margin_top = 120.885
+margin_right = 158.906
+margin_bottom = 134.885
 text = "YAY! My Partner!"
 
-[node name="HappilyLabel" type="Label" parent="Victory"]
-visible = false
-margin_left = -32.5604
-margin_top = -0.521027
-margin_right = 151.44
-margin_bottom = 13.479
-text = "We'll Live Happily Ever After!"
-
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Victory"]
-stream = ExtResource( 11 )
+stream = ExtResource( 12 )
+
+[node name="ColorRect" type="ColorRect" parent="Victory"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = -2043.18
+margin_top = -2238.81
+margin_right = 2052.82
+margin_bottom = 1857.19
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 13 )
+autoplay = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/victory = SubResource( 1 )
 
 [connection signal="body_entered" from="Exit" to="." method="_on_Exit_body_entered"]

@@ -5,14 +5,16 @@ extends KinematicBody2D
 enum MODES { horizontal, asteroids }
 export var CurrentMode = MODES.horizontal
 export var RoamingRange = 200
+export var Speed : int = 200
 
 
 onready var global = get_node("/root/global")
 var Velocity : Vector2 = Vector2(0, 0)
 var Direction : int = 1
-var Speed : int = 200
 var UP : Vector2 = Vector2(0, 1)
 var InitialPosition : Vector2
+
+export (String) var DefaultAnimation : String = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,6 +23,8 @@ func _ready():
 func start():
 	InitialPosition = get_global_position()
 	add_to_group("enemies")
+	if DefaultAnimation != "" and has_node("AnimationPlayer"):
+		$AnimationPlayer.play(DefaultAnimation)
 	
 #func applyGravity(delta):
 #	Velocity.y += global.Gravity * delta * global.GameSpeed
@@ -58,9 +62,9 @@ func walkBackAndForth(delta, center, furthestDistance ):
 		Direction = -1
 	
 	if Direction > 0:
-		$Sprite.set_flip_h(true)
-	else:
 		$Sprite.set_flip_h(false)
+	else:
+		$Sprite.set_flip_h(true)
 		
 	Velocity = Vector2(Direction * Speed * delta, 0.0)
 	#Velocity += getGravityVector(delta)

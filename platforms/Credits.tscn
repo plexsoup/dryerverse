@@ -1,0 +1,86 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://platforms/Level.gd" type="Script" id=1]
+[ext_resource path="res://backgrounds/fireplaceMantle.jpg" type="Texture" id=2]
+[ext_resource path="res://fonts/PoolTheme.tres" type="Theme" id=3]
+[ext_resource path="res://characters/socko.png" type="Texture" id=4]
+[ext_resource path="res://characters/sockoEyes.png" type="Texture" id=5]
+[ext_resource path="res://platforms/Exit.tscn" type="PackedScene" id=6]
+[ext_resource path="res://platforms/barrier.gd" type="Script" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+extents = Vector2( 395.897, 10 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+extents = Vector2( 323.031, 21.7731 )
+
+[node name="Credits" type="Node2D"]
+script = ExtResource( 1 )
+IntroText = [ "Congratulations! Now, we can live happily ever after. ", "...game design, artwork and code by plexsoup ...audio from freesound.org and jukedeck.com ...Software: Godot, Aseprite, Inkscape, Gimp, Audacity. ...Thanks to the Creative Game Jam on Itch.io. Enjoy all the games!" ]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -319.0
+margin_top = -329.0
+margin_right = 1194.0
+margin_bottom = 1291.0
+color = Color( 0.329412, 0.207843, 0, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = 108.974
+margin_top = 69.6339
+margin_right = 694.974
+margin_bottom = 695.634
+texture = ExtResource( 2 )
+expand = true
+
+[node name="Label" type="Label" parent="."]
+margin_left = 283.399
+margin_top = 222.963
+margin_right = 488.399
+margin_bottom = 293.963
+theme = ExtResource( 3 )
+text = "Congratulations!
+"
+
+[node name="sockie" type="Sprite" parent="."]
+position = Vector2( 547.781, 292.754 )
+rotation = 0.20944
+scale = Vector2( 0.0929994, 0.0929994 )
+texture = ExtResource( 4 )
+
+[node name="socko" type="Sprite" parent="."]
+visible = false
+position = Vector2( 161.094, 352.086 )
+rotation = 0.20944
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 5 )
+
+[node name="Exit" parent="." instance=ExtResource( 6 )]
+position = Vector2( 584.256, 319.19 )
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Node2D"]
+position = Vector2( 383.294, 420.901 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
+shape = SubResource( 1 )
+
+[node name="PlayerSpawnPoint" type="Position2D" parent="."]
+position = Vector2( 237.174, 337.975 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 371.281, 234.828 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 2 )
+

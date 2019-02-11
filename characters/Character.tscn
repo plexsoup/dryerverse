@@ -4,7 +4,7 @@
 [ext_resource path="res://characters/sockoEyes.png" type="Texture" id=2]
 [ext_resource path="res://characters/Camera2D.gd" type="Script" id=3]
 [ext_resource path="res://weapons/GrappleGun.tscn" type="PackedScene" id=4]
-[ext_resource path="res://characters/StateMachine.gd" type="Script" id=5]
+[ext_resource path="res://effects/footsteps.ogg" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -152,7 +152,9 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id=6]
 
+length = 0.3
 loop = true
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("SpriteContainer/Sprite:rotation_degrees")
 tracks/0/interp = 1
@@ -160,7 +162,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 1 ),
+"times": PoolRealArray( 0, 0.05, 0.25 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ 18.8, 7.8, 18.8 ]
@@ -172,7 +174,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3, 0.5, 0.8, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.15, 0.2, 0.25 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0.1, 0.1 ), Vector2( 0.1, 0.08 ), Vector2( 0.1, 0.1 ), Vector2( 0.1, 0.11 ), Vector2( 0.1, 0.1 ) ]
@@ -184,7 +186,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.8, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.25 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0.579315, -0.323166 ), Vector2( 4.079, -12.953 ), Vector2( 0.579315, -0.323166 ) ]
@@ -238,7 +240,8 @@ script = ExtResource( 1 )
 [node name="SpriteContainer" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="SpriteContainer"]
-position = Vector2( 0.125, 0.379 )
+position = Vector2( 0.579315, -0.323166 )
+rotation = 0.328122
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 2 )
 offset = Vector2( -37.364, -451.755 )
@@ -266,25 +269,7 @@ anims/swing = SubResource( 7 )
 [node name="GrappleGun" parent="." instance=ExtResource( 4 )]
 position = Vector2( 0, -86.24 )
 
-[node name="States" type="Node" parent="."]
-script = ExtResource( 5 )
-
-[node name="Idle" type="Node" parent="States"]
-
-[node name="Moving" type="Node" parent="States"]
-
-[node name="Crouching" type="Node" parent="States"]
-
-[node name="Jumping" type="Node" parent="States"]
-
-[node name="Swinging" type="Node" parent="States"]
-
-[node name="Staggered" type="Node" parent="States"]
-
-[node name="Falling" type="Node" parent="States"]
-
-[node name="Celebrating" type="Node" parent="States"]
-
-[node name="Warping" type="Node" parent="States"]
+[node name="FootstepNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
 
 [connection signal="timeout" from="CrouchTimer" to="." method="_on_CrouchTimer_timeout"]

@@ -8,11 +8,18 @@ extends Node
 	
 # TODO:
 	
-	# add boundary collision areas to detect when character falls out of level
+	# bug: grapple gun relocates hook if player hasn't moved.
+	
+	
+	# on nextLevel(), you should remove old bullets.
+	
+	# water sprites don't always move.
+	
+	
+	# add boundary collision areas to (Levels 1 and 3) to detect when character falls out of level
 		# Bug. If you fall off the world on level 2, on restarting, the player collision area seems disabled. (falls through earth)
 	
 
-	# title screen should accept enter to begin level1 .
 	# game over animation should return to dryer from level 3.
 		# or, make a key or timer to restart the game.
 	
@@ -66,4 +73,8 @@ extends Node
 		# search your databanks and retrieve the correct responses.
 	
 
-	
+# Credits:
+# Audio
+# jukedeck.com
+# freesound.org
+# Footsteps in snow: https://freesound.org/people/InspectorJ/sounds/421022/

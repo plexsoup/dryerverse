@@ -42,16 +42,19 @@ func fall(delta):
 	set_global_position(get_global_position() + FallVelocity)
 	
 func stick(body):
+	
 	CurrentState = STATES.stuck
 	# now tell the scene to attach a pin joint from the player to the bullet
 	# we might need a staticBody2D
 	#print(self.name, " sticking to : ", body.get_class() )
 	if body.is_class("TileMap") == false:
 		AttachedTo = body
+	else:
+		AttachedTo = self
 	
 	connect("stuck", global.getCurrentPlayer(), "_on_GrapplingHook_stuck")
 	connect("stuck", MyGun, "_on_GrapplingHook_stuck")
-	emit_signal("stuck", self)
+	emit_signal("stuck", self, AttachedTo)
 
 func explode():
 	AttachedTo = null
@@ -84,9 +87,10 @@ func _process(delta):
 		fall(delta)
 	
 	if CurrentState == STATES.stuck: # stay with your target, in case they move.
-		if AttachedTo != null:
-			set_global_position(AttachedTo.get_global_position())
-		
+		if is_instance_valid(AttachedTo):
+			if AttachedTo != null and AttachedTo.is_in_group("enemies"):
+				set_global_position(AttachedTo.get_global_position())
+				
 	update()
 
 
@@ -95,7 +99,7 @@ func _process(delta):
 #func _on_Bullet_body_entered(body):
 func _on_StickyArea_body_entered(body):
 	
-	if body != global.getCurrentPlayer() and body.name.find("Exit") == -1:
+	if body != global.getCurrentPlayer() and body.name.find("Exit") == -1 and body.is_in_group("barriers") == false:
 		#print(self.name, " entered ", body.name)
 		if Sticky == false:
 			explode()

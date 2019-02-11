@@ -10,17 +10,31 @@ func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	if Input.is_action_just_pressed("ui_accept"):
+		startLevel()
+	elif Input.is_action_just_pressed("ui_cancel"):
+		quitGame()
 
-
-func _on_StartButton_pressed():
+func startLevel():
 	$AnimationPlayer.play("launchLevel1")
 	$Level1StartTimer.start()
+	
+func quitGame():
+	get_tree().quit()
+	
 
+func _on_StartButton_pressed():
+	startLevel()
+	
 func _on_Level1StartTimer_timeout():
 	emit_signal("start_button_pressed")
 
 
 func _on_ExitButton_pressed():
-	get_tree().quit()
+	quitGame()
+
+func _on_DryerSprite_gui_input(event):
+	if Input.is_action_just_pressed("ui_accept"):
+		startLevel()
+		#pass

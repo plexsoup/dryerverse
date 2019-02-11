@@ -1,7 +1,7 @@
 extends Node2D
 
 var CurrentLevelIndex : int = -1
-var Levels = ["res://platforms/Level1.tscn", "res://platforms/Level2.tscn", "res://platforms/Level3.tscn"]
+var Levels = ["res://platforms/Level1.tscn", "res://platforms/Level2.tscn", "res://platforms/Level3.tscn", "res://platforms/Credits.tscn", "res://platforms/hyperspace.tscn"]
 var CurrentLevelNode
 
 var TitleScreen
@@ -37,21 +37,25 @@ func startGame():
 	
 
 func removeOldLevel():
-	if CurrentLevelNode:
+	if is_instance_valid(CurrentLevelNode):
 		CurrentLevelNode.queue_free()
-	if CurrentPlayerNode:
+	if is_instance_valid(CurrentPlayerNode):
 		CurrentPlayerNode.queue_free()
+	for consumableNode in $Consumables.get_children():
+		consumableNode.queue_free()
 
 
 func instantiateNewLevel(levelPath):
 	var levelScene = load(levelPath)
 	CurrentLevelNode = levelScene.instance()
-	add_child(CurrentLevelNode)
+	$Levels.add_child(CurrentLevelNode)
+	
 	global.setCurrentScene(CurrentLevelNode)
 	CurrentLevelNode.connect("level_initialized", self, "_on_level_initialized")
 	CurrentLevelNode.start() # spawn the player or whatever else you need to do.
 	
-	CurrentLevelNode.getExit().connect("level_completed", self, "_on_level_completed")
+	if CurrentLevelNode.getExit() != null:
+		CurrentLevelNode.getExit().connect("level_completed", self, "_on_level_completed")
 	
 	
 func nextLevel():
@@ -60,6 +64,13 @@ func nextLevel():
 	if CurrentLevelIndex < Levels.size():
 		instantiateNewLevel(Levels[CurrentLevelIndex])
 		CurrentState = STATES.playing
+	else:
+		removeOldLevel()
+		showTitleScreen()
+		CurrentLevelNode = null
+		CurrentLevelIndex = -1
+		
+		
 
 func restartLevel():
 	removeOldLevel()
@@ -82,7 +93,8 @@ func _input(event):
 		nextLevel()
 
 func _on_level_initialized():
-	spawnPlayer(CurrentLevelNode.get_node("PlayerSpawnPoint").get_global_position())
+	if CurrentLevelNode.has_node("PlayerSpawnPoint"):
+		spawnPlayer(CurrentLevelNode.get_node("PlayerSpawnPoint").get_global_position())
 	
 func _on_level_completed():
 	# hide the player

@@ -10,6 +10,8 @@ var CurrentState = STATES.idle
 var HookNode # grappling hook
 onready var RaycastNode = $Muzzle/GrappleRay 
 
+var HookStuckTo
+
 signal hook_launched(nodeA, nodeB)
 signal hook_released()
 
@@ -36,9 +38,12 @@ func detectRayCollisions():
 	
 	if RaycastNode.is_colliding():
 		#print(self.name, " ray colliders: ", RaycastNode.get_collider())
-		var collisionPoint = RaycastNode.get_collision_point()
-		# move the bullet to the collision point?
-		HookNode.set_global_position(collisionPoint)
+		if RaycastNode.get_collider() != HookStuckTo:
+			var collisionPoint = RaycastNode.get_collision_point()
+			# move the bullet to the collision point?
+			#print(HookStuckTo)
+			#print(collisionPoint)
+			HookNode.set_global_position(collisionPoint)
 
 func _process(delta):
 	if CurrentState == STATES.stuck:
@@ -65,6 +70,7 @@ func shootBullet():
 		connect("hook_released", newBullet, "_on_GrappleGun_hook_released")
 		CurrentState = STATES.extended
 
+		$AudioStreamPlayer2D.play()
 		emit_signal("hook_launched", self, newBullet) # so the visualizer can draw lines in global coordinates
 	
 func releaseGrapplingHook():
@@ -79,9 +85,10 @@ func reloadGrapplingHook():
 	
 
 func _input(event):
-	if global.getCurrentPlayer().CurrentState == global.getCurrentPlayer().STATES.reading:
-		return # don't shoot during dialog boxes
-		
+	if is_instance_valid(global.getCurrentPlayer()):
+		if global.getCurrentPlayer().CurrentState == global.getCurrentPlayer().STATES.reading:
+			return # don't shoot during dialog boxes
+			
 	if Input.is_action_just_pressed("shoot"):
 #		shootGrapplingHook()
 		if CurrentState == STATES.idle:
@@ -90,10 +97,11 @@ func _input(event):
 			releaseGrapplingHook()
 			shootBullet() # added for game feel.
 
-func _on_GrapplingHook_stuck(hookNode):
+func _on_GrapplingHook_stuck(hookNode, stuckTo):
 	if CurrentState == STATES.extended:
 		CurrentState = STATES.stuck
 		HookNode = hookNode
+		HookStuckTo = stuckTo
 
 func _on_Character_hook_release_requested():
 	# Game feel: crouching should release. shooting twice should just shoot twice

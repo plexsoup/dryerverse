@@ -1,6 +1,10 @@
-[gd_resource type="DynamicFont" format=2]
+[gd_resource type="DynamicFont" load_steps=2 format=2]
+
+[ext_resource path="res://fonts/Libre_Baskerville/LibreBaskerville-Bold.ttf" type="DynamicFontData" id=1]
 
 [resource]
 
-size = 12
+size = 72
+use_filter = true
+font_data = ExtResource( 1 )
 

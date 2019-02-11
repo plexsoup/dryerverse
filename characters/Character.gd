@@ -9,9 +9,6 @@ We don't have a separate playercontroller for handling inputs, so we're not set 
 
 We have a separate GrapplingGun which handles shooting
 
-ISSUES
-------
-- swinging movement is jerky
 
 """
 
@@ -88,9 +85,9 @@ func start():
 
 func jump(magnitude):
 	CrouchTicks = 0
-	print(self.name, " jump ", magnitude )
+	#print(self.name, " jump ", magnitude )
 	CurrentVelocity.y = -1 * JumpVelocity * magnitude
-	print(self.name, " CurrentVelocity.y == " , CurrentVelocity.y )
+	#print(self.name, " CurrentVelocity.y == " , CurrentVelocity.y )
 	changeState(STATES.jumping)
 
 func applyFriction(delta):
@@ -206,7 +203,8 @@ func move(delta):
 
 func changeState(newState):
 	var animationPlayer = $AnimationPlayer
-
+	$FootstepNoise.stop()
+	
 	match newState:
 		STATES.idle:
 			animationPlayer.play("idle")
@@ -224,6 +222,7 @@ func changeState(newState):
 		STATES.running:
 			animationPlayer.play("run")
 			XFriction = 0.01
+			$FootstepNoise.play()
 		STATES.falling:
 			animationPlayer.play("fall")
 			XFriction = 0.01
@@ -247,7 +246,7 @@ func checkForStateTransition():
 				changeState(STATES.idle)
 		STATES.crouching:
 			if Input.is_action_pressed("crouch") == false:
-				print("jumping!")
+				#print("jumping!")
 				CurrentVelocity.y = -1
 				jump(clamp(CrouchTicks, 1, MaxCrouchTicks))
 		STATES.swinging:
@@ -309,7 +308,7 @@ func _on_CrouchTimer_timeout():
 	if CrouchTicks < MaxCrouchTicks and CurrentState == STATES.crouching:
 		$CrouchTimer.start()
 
-func _on_GrapplingHook_stuck(hookNode):
+func _on_GrapplingHook_stuck(hookNode, stuckTo):
 	changeState(STATES.swinging)
 	RopeAttachmentNode = hookNode
 	DesiredRopeLength = get_global_position().distance_to( RopeAttachmentNode.get_global_position() )
