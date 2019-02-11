@@ -143,7 +143,7 @@ expand = true
 position = Vector2( 334.226, 449.168 )
 offset = Vector2( 0, -131.98 )
 current = true
-zoom = Vector2( 8, 8 )
+zoom = Vector2( 0.8, 0.8 )
 
 [node name="StartButton" type="Button" parent="."]
 margin_left = -311.349

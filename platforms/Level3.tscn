@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://platforms/Level.gd" type="Script" id=1]
 [ext_resource path="res://platforms/laundromat.jpg" type="Texture" id=2]
@@ -11,10 +11,9 @@
 [ext_resource path="res://characters/socko.png" type="Texture" id=9]
 [ext_resource path="res://platforms/streetBackground.jpg" type="Texture" id=10]
 [ext_resource path="res://enemies/WaterSprite.tscn" type="PackedScene" id=11]
-[ext_resource path="res://effects/cheering.ogg" type="AudioStream" id=12]
-[ext_resource path="res://music/Lunar Answer-fromJukedeck.ogg" type="AudioStream" id=13]
+[ext_resource path="res://music/Lunar Answer-fromJukedeck.ogg" type="AudioStream" id=12]
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=1]
 
 extents = Vector2( 39.4673, 510.796 )
 
@@ -22,9 +21,8 @@ extents = Vector2( 39.4673, 510.796 )
 
 extents = Vector2( 47.9128, 13.7348 )
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=3]
 
-resource_name = "victory"
 length = 5.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Victory:visible")
@@ -39,24 +37,12 @@ tracks/0/keys = {
 "values": [ false, true, true ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Victory/AudioStreamPlayer2D:playing")
+tracks/1/path = NodePath("Victory/ColorRect:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.1, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Victory/ColorRect:self_modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0.1, 4.9 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
@@ -88,7 +74,7 @@ margin_right = 40.0
 margin_bottom = 485.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Barriers/PerimeterWall1"]
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="PerimeterWall2" type="StaticBody2D" parent="Barriers"]
 position = Vector2( 1613.07, -474.933 )
@@ -104,7 +90,7 @@ margin_right = 312.0
 margin_bottom = 485.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Barriers/PerimeterWall2"]
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="BGVortex" type="Sprite" parent="."]
 visible = false
@@ -194,9 +180,6 @@ margin_right = 158.906
 margin_bottom = 134.885
 text = "YAY! My Partner!"
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Victory"]
-stream = ExtResource( 12 )
-
 [node name="ColorRect" type="ColorRect" parent="Victory"]
 self_modulate = Color( 1, 1, 1, 0 )
 margin_left = -2043.18
@@ -205,10 +188,10 @@ margin_right = 2052.82
 margin_bottom = 1857.19
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 13 )
+stream = ExtResource( 12 )
 autoplay = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/victory = SubResource( 1 )
+anims/victory = SubResource( 3 )
 
 [connection signal="body_entered" from="Exit" to="." method="_on_Exit_body_entered"]

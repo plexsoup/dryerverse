@@ -18,5 +18,4 @@ func _ready():
 func _on_Exit_body_entered(body):
 	if body == global.getCurrentPlayer():
 		emit_signal("level_completed")
-		if has_node("Particles2D"):
-			$Particles2D.set_emitting(true)
+		

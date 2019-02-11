@@ -60,7 +60,7 @@ func explode():
 	AttachedTo = null
 	CurrentState = STATES.exploding
 	
-	$Explosion.set_emitting(true)
+	
 	#$CollisionShape2D.call_deferred("set_disabled", true)
 	$StickyArea/CollisionShape2D.call_deferred("set_disabled", true)
 

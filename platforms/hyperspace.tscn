@@ -7,15 +7,15 @@
 [ext_resource path="res://fonts/Baskerville.tres" type="DynamicFont" id=5]
 [ext_resource path="res://platforms/Exit.tscn" type="PackedScene" id=6]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 
 extents = Vector2( 448.656, 10 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=2]
 
 extents = Vector2( 11.9765, 204.722 )
 
-[sub_resource type="ParticlesMaterial" id=1]
+[sub_resource type="ParticlesMaterial" id=3]
 
 flag_disable_z = true
 spread = 180.0
@@ -34,19 +34,19 @@ position = Vector2( 395.869, 638.015 )
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 15.0734, -435.621 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( -391.886, -217.408 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 389.883, -218.086 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -71,7 +71,7 @@ texture = ExtResource( 3 )
 position = Vector2( 415.848, 441.216 )
 scale = Vector2( 0.5, 0.5 )
 amount = 64
-process_material = SubResource( 1 )
+process_material = SubResource( 3 )
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.75, 0.75 )
@@ -79,7 +79,6 @@ motion_scale = Vector2( 0.75, 0.75 )
 [node name="Node2D" type="Node2D" parent="ParallaxBackground/ParallaxLayer2"]
 position = Vector2( 136.037, 372.742 )
 rotation = -0.488692
-scale = Vector2( 1, 1 )
 
 [node name="HyperspaceLabel" type="Label" parent="ParallaxBackground/ParallaxLayer2/Node2D"]
 margin_left = -69.5374

@@ -30,7 +30,6 @@ gdscript/warnings/enable=false
 [display]
 
 window/size/width=800
-window/size/height=800
 
 [input]
 

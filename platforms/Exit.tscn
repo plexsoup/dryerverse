@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://platforms/Exit.gd" type="Script" id=1]
 [ext_resource path="res://backgrounds/crabnebula.png" type="Texture" id=2]
-[ext_resource path="res://effects/WarpParticles.tscn" type="PackedScene" id=3]
 
 [sub_resource type="Animation" id=1]
 
@@ -60,8 +59,6 @@ anims/idle = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
-
-[node name="Particles2D" parent="." instance=ExtResource( 3 )]
 
 [node name="Label" type="Label" parent="."]
 margin_left = -11.6796
