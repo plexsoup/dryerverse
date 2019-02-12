@@ -8,8 +8,10 @@ extends Node
 	
 # TODO:
 	
-	# bug: grapple gun relocates hook if player hasn't moved.
-	
+	# bug: on first level, grapple gun relocates hook if player hasn't moved.
+	# bug: players can inch along surfaces by rapid clicking the mouse.
+		# add a distance limiter on the grappling gun, so they have to shoot some distance away from their attachment point.
+		
 	
 	# on nextLevel(), you should remove old bullets.
 	

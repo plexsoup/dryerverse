@@ -15,15 +15,23 @@ extents = Vector2( 448.656, 10 )
 
 extents = Vector2( 11.9765, 204.722 )
 
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="Animation" id=3]
 
-flag_disable_z = true
-spread = 180.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 600.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-scale = 2.0
+resource_name = "rotateNebula"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("ParallaxBackground/ParallaxLayer/nebula:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
 
 [node name="Hyperspace" type="Node2D"]
 script = ExtResource( 1 )
@@ -67,12 +75,6 @@ self_modulate = Color( 1, 1, 1, 0.403922 )
 position = Vector2( 400.844, 358.137 )
 texture = ExtResource( 3 )
 
-[node name="Particles2D" type="Particles2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 415.848, 441.216 )
-scale = Vector2( 0.5, 0.5 )
-amount = 64
-process_material = SubResource( 3 )
-
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.75, 0.75 )
 
@@ -93,6 +95,8 @@ text = "HYPERSPACE"
 position = Vector2( 395.869, 586.321 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "rotateNebula"
+anims/rotateNebula = SubResource( 3 )
 
 [node name="Exit" parent="." instance=ExtResource( 6 )]
 position = Vector2( 708.157, 599.596 )

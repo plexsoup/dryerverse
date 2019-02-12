@@ -88,6 +88,9 @@ func _input(event):
 	if is_instance_valid(global.getCurrentPlayer()):
 		if global.getCurrentPlayer().CurrentState == global.getCurrentPlayer().STATES.reading:
 			return # don't shoot during dialog boxes
+
+		if global.getCurrentPlayer().CurrentState == global.getCurrentPlayer().STATES.dying:
+			return # don't shoot while dying
 			
 	if Input.is_action_just_pressed("shoot"):
 #		shootGrapplingHook()

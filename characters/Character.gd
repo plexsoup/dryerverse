@@ -63,12 +63,12 @@ signal hook_release_requested()
 signal level_restart_requested()
 
 
-enum STATES { idle, moving, jumping, crouching, sliding, swinging, warping, running, falling, reading } 
+enum STATES { idle, moving, jumping, crouching, sliding, swinging, warping, running, falling, reading, dying } 
 var CurrentState = STATES.idle
 
 
 func stateToString(state):
-	var stateArray = [ "idle", "moving", "jumping", "crouching", "sliding", "swinging", "warping", "running", "falling", "reading" ]
+	var stateArray = [ "idle", "moving", "jumping", "crouching", "sliding", "swinging", "warping", "running", "falling", "reading", "dying" ]
 	return stateArray[state]
 
 
@@ -164,7 +164,9 @@ func applySpring(delta):
 
 
 func move(delta):
-	
+	if CurrentState == STATES.dying:
+		return # don't move anymore
+		
 	applyUserInput(delta)
 	applyGravity(delta)
 	applyObstacles(delta)
@@ -195,11 +197,16 @@ func move(delta):
 		var collision = get_slide_collision(indexNum)
 		if collision.get_collider().is_in_group("enemies"):
 			# restart the level. you hit a dust bunny
-			emit_signal("level_restart_requested")
+			dieSlowly()
 
 	
 	#update() # calls _draw()
-	
+
+func dieSlowly():
+	CurrentState = STATES.dying
+	$DeathTimer.start()
+	$AnimationPlayer.play("death")
+		
 
 func changeState(newState):
 	var animationPlayer = $AnimationPlayer
@@ -332,3 +339,6 @@ func _on_dialogBox_initialized():
 func _on_dialogBox_completed():
 	CurrentState = STATES.idle
 	
+
+func _on_DeathTimer_timeout():
+	emit_signal("level_restart_requested")
